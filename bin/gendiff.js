@@ -7,12 +7,12 @@ program
     .version('0.0.1');
 
 program
-    //.argument('[filename]', 'string to split')
-   // .argument('[string2]', 'string to split')
+    .argument('[filepath1]')
+    .argument('[filepath2]')
     //    .command('aa')
     //    .description('Split a string into substrings and display as an array')
     //.option('-V, --version', 'output the version number')
-    //.option('-d, --debug')
+    .option('-f, --format [type]','output format')
     .option('-h, --help', 'display help for command')
 
 program.parse();
