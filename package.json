@@ -18,10 +18,13 @@
     "code": "bin/gendif.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "commander": "^14.0.3"
+    "commander": "^14.0.3",
+    "js-yaml": "^4.1.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

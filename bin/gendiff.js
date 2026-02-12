@@ -35,7 +35,7 @@ function compareObjects(a, b) {
       result.push({ sign: '+', key: i, value: b[i] })
     }
   }
-  return result;
+  return result
 }
 
 program
