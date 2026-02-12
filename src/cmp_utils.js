@@ -1,6 +1,7 @@
-import { yaml } from '@js-yaml'
+import * as yaml from 'js-yaml'
 import { readFileSync } from 'node:fs'
 import { accessSync, constants } from 'node:fs'
+import { extname } from 'path';
 
 /**
  *  so read file and convert it from json or yaml format
@@ -13,11 +14,13 @@ function readfile(filename, format) {
     console.log (err.message)
     return null
   }
-  if (format) format = 'json'
+  if (!format) {
+  format =extname(filename);
+  }
 
-  if (format === 'json')
+  if (format === 'json' || format === '.json')
     return JSON.parse(readFileSync(filename))
-  else if (format === 'yaml')
+  else if (format === 'yml' || format === '.yml')
     return yaml.safeLoad(readFileSync(filename))
   return readFileSync(filename)
 }

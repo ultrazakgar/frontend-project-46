@@ -1,5 +1,7 @@
 import { Command } from 'commander'
 const program = new Command()
+import { compareObjects } from '../src/cmp_utils.js'
+import { readfile } from '../src/cmp_utils.js'
 
 program
   .name('gendiff')
@@ -16,10 +18,8 @@ program
   .option('-h, --help', 'display help for command')
   .action(function () {
     try {
-      let o1 = readfile(this.args[0]),
-        o2 = readfile(this.args[1])
       // so let's out it
-      let result = compareObjects(o1, o2)
+      let result = compareObjects(readfile(this.args[0]), readfile(this.args[1]))
       console.log('{')
       for (let row of result) {
         console.log('  %s %s: %s', row.sign, row.key, row.value)
