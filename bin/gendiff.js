@@ -1,42 +1,5 @@
 import { Command } from 'commander'
-import { readFileSync } from 'node:fs'
-import { accessSync, constants } from 'node:fs'
 const program = new Command()
-
-function readfile(filename) {
-  try { // testing
-    accessSync(filename, constants.R_OK)
-  }
-  catch (err) {
-    console.log (err.message)
-    return null
-  }
-  return readFileSync(filename)
-}
-
-function compareObjects(a, b) {
-  let sum = [...new Set(Object.keys(a).concat(Object.keys(b)))].sort(), result = []
-  for (let i of sum) {
-    if (i in a) {
-      if (i in b) {
-        if (a[i] === b[i]) {
-          result.push({ sign: ' ', key: i, value: b[i] })
-        }
-        else {
-          result.push({ sign: '-', key: i, value: a[i] })
-          result.push({ sign: '+', key: i, value: b[i] })
-        }
-      }
-      else {
-        result.push({ sign: '-', key: i, value: a[i] })
-      }
-    }
-    else {
-      result.push({ sign: '+', key: i, value: b[i] })
-    }
-  }
-  return result
-}
 
 program
   .name('gendiff')
@@ -56,7 +19,7 @@ program
       let o1 = readfile(this.args[0]),
         o2 = readfile(this.args[1])
       // so let's out it
-      let result = compareObjects(JSON.parse(o1), JSON.parse(o2))
+      let result = compareObjects(o1, o2)
       console.log('{')
       for (let row of result) {
         console.log('  %s %s: %s', row.sign, row.key, row.value)
