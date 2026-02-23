@@ -17,6 +17,9 @@
   "bin": {
     "code": "bin/gendif.js"
   },
+  "bin": {
+    "gendiff": "node bin/gendif.js"
+  },
   "scripts": {
     "gendiff": "node bin/gendif.js",
     "test": "jest",
