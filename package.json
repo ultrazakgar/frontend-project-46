@@ -16,8 +16,8 @@
   "main": "index.js",
   "bin": {
     "code": "bin/gendiff.js",
-    "gendiff": "node bin/gendiff.js",
-    "@hexlet/code": "bin/brain-games.js"
+    "gendiff": "bin/gendiff.js",
+    "@hexlet/code": "bin/gendiff.js"
   },
   
   "scripts": {
