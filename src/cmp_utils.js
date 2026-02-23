@@ -21,7 +21,7 @@ function readfile(filename, format) {
   if (format === 'json' || format === '.json')
     return JSON.parse(readFileSync(filename))
   else if (format === 'yml' || format === '.yml')
-    return yaml.safeLoad(readFileSync(filename))
+    return yaml.load(readFileSync(filename))
   return readFileSync(filename)
 }
 
