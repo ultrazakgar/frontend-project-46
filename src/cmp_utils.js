@@ -49,4 +49,4 @@ function genDiff (a, b) {
   return result
 }
 
-export { readfile, compareObjects }
+export { readfile, genDiff }

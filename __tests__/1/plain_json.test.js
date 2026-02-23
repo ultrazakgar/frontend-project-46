@@ -1,7 +1,6 @@
 // @ts-check
 
 import { expect, test } from '@jest/globals'
-import { compareObjects } from '../../src/cmp_utils.js'
 import { readfile } from '../../src/cmp_utils.js'
 import * as yaml from 'js-yaml'
 import { extname } from 'path';
@@ -11,7 +10,7 @@ test('ext', () => {
   expect(extname('file.json')).toBe('.json')
 })
 test('plain_json', () => {
-  expect(JSON.stringify(compareObjects({ a: 1 }, { a: 1 }))).toBe(JSON.stringify([{ sign: ' ', key: 'a', value: 1 }]))
+  expect(JSON.stringify(readfile({ a: 1 }, { a: 1 }))).toBe(JSON.stringify([{ sign: ' ', key: 'a', value: 1 }]))
 })
 test('readjson', () => {
   expect(JSON.stringify(readfile('file1.json'))).toBe(JSON.stringify({
