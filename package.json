@@ -16,12 +16,11 @@
   "main": "index.js",
   "bin": {
     "code": "bin/gendiff.js",
-    "gendiff": "node bin/gendiff.js"
-    
+    "gendiff": "node bin/gendiff.js",
+    "@hexlet/code": "bin/brain-games.js"
   },
   
   "scripts": {
-    "gendiff": "node bin/gendiff.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
