@@ -25,7 +25,7 @@ function readfile(filename, format) {
   return readFileSync(filename)
 }
 
-function genDiff (a, b) {
+function compareObj (a, b) {
   let sum = [...new Set(Object.keys(a).concat(Object.keys(b)))].sort(), result = []
   for (let i of sum) {
     if (i in a) {
@@ -49,4 +49,4 @@ function genDiff (a, b) {
   return result
 }
 
-export { readfile, genDiff }
+export { readfile, compareObj }

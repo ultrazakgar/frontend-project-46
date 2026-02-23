@@ -1,8 +1,18 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
 const program = new Command()
-import { genDiff  } from '../src/cmp_utils.js'
+import { compareObj  } from '../src/cmp_utils.js'
 import { readfile } from '../src/cmp_utils.js'
+
+export function genDiff (file1, file2,format){
+  let result = compareObj (readfile(file1), readfile(file2))
+  console.log('{')
+  for (let row of result) {
+    console.log('  %s %s: %s', row.sign, row.key, row.value)
+  }
+  console.log('}')
+
+}
 
 program
   .name('gendiff')
@@ -20,12 +30,8 @@ program
   .action(function () {
     try {
       // so let's out it
-      let result = genDiff (readfile(this.args[0]), readfile(this.args[1]))
-      console.log('{')
-      for (let row of result) {
-        console.log('  %s %s: %s', row.sign, row.key, row.value)
-      }
-      console.log('}')
+      const options = program.opts()
+      genDiff(this.args[0],this.args[1],options.format);
     }
     catch (err) {
       console.log (err.message)
