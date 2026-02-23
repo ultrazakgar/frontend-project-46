@@ -21,7 +21,7 @@
     "gendiff": "node bin/gendiff.js"
   },
   "scripts": {
-    "gendiff": "node bin/gendiff.js",
+    "genDiff": "node bin/gendiff.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"

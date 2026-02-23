@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
 const program = new Command()
-import { compareObjects } from './src/cmp_utils.js'
-import { readfile } from './src/cmp_utils.js'
+import { compareObjects } from '../src/cmp_utils.js'
+import { readfile } from '../src/cmp_utils.js'
 
 program
   .name('gendiff')
