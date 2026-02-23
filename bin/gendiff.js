@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
 const program = new Command()
-import { compareObjects } from '../src/cmp_utils.js'
+import { genDiff  } from '../src/cmp_utils.js'
 import { readfile } from '../src/cmp_utils.js'
 
 program
@@ -20,7 +20,7 @@ program
   .action(function () {
     try {
       // so let's out it
-      let result = compareObjects(readfile(this.args[0]), readfile(this.args[1]))
+      let result = genDiff (readfile(this.args[0]), readfile(this.args[1]))
       console.log('{')
       for (let row of result) {
         console.log('  %s %s: %s', row.sign, row.key, row.value)

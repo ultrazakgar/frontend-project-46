@@ -25,7 +25,7 @@ function readfile(filename, format) {
   return readFileSync(filename)
 }
 
-function compareObjects(a, b) {
+function genDiff (a, b) {
   let sum = [...new Set(Object.keys(a).concat(Object.keys(b)))].sort(), result = []
   for (let i of sum) {
     if (i in a) {
