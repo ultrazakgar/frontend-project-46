@@ -1,2 +1,2 @@
 #!/bin/sh
-node bin/gendif.js $@
+node bin/gendiff.js $@
