@@ -19,7 +19,7 @@ export default function genDiff(file1, file2, format) {
   if (format == 'plain')
     return printplain(result)
   if (format === 'json')
-    return JSON.serialize(result)
+    return JSON.stringify(result)
 
   return `${format} unrecognised ${file1} ${file2}`
 }
