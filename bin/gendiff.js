@@ -1,7 +1,21 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
+import { readfile } from '../src/cmp_utils.js'
+import { compareObj } from '../src/cmp_utils.js'
+import { printjson } from '../src/cmp_utils.js'
 const program = new Command()
-import { genDiff } from '../src/cmp_utils.js'
+
+export default function genDiff(file1, file2, format) {
+  let data1 = readfile(file1), data2 = readfile(file2)
+  if (!data1) return 'file not found'
+  if (!data2) return 'file not found'
+  let result = compareObj (data1, data2)
+  if (!format) format = 'json'
+  if (format === 'json')
+    return printjson(result)
+
+  return 'format unrecognised'
+}
 
 program
   .name('gendiff')
@@ -38,3 +52,4 @@ if (options.help)
 // const file1 = import.meta.dirname + '/../__tests__/2/file1 copy.json'
 // const file2 = import.meta.dirname + '/../__tests__/2/file2 copy.json'
 // console.log(compareObj(readfile(file1), readfile(file2)))
+export { genDiff }

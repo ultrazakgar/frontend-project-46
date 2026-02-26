@@ -92,16 +92,6 @@ function printjson(result, tab_count = 0) {
   return input_plain_format
 }
 
-function genDiff(file1, file2, format) {
-  let data1 = readfile(file1), data2 = readfile(file2)
-  if (!data1) return 'file not found'
-  if (!data2) return 'file not found'
-  let result = compareObj (data1, data2)
-  if (!format) format = 'json'
-  if (format === 'json')
-    return printjson(result)
 
-  return 'format unrecognised'
-}
 
-export { readfile, compareObj, genDiff, printjson }
+export { readfile, compareObj, printjson }

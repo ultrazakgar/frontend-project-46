@@ -1,7 +1,7 @@
 // @ts-check
 
 import { expect, test } from '@jest/globals'
-import { genDiff } from '../../src/cmp_utils.js'
+import { genDiff } from '../../bin/gendiff.js'
 import { printjson } from '../../src/cmp_utils.js'
 /*
 test('compareobj', ()=>{
