@@ -81,7 +81,7 @@ function printjson(result, tab_count = 0) {
   let input_plain_format = line('{', notab)
   tab_count++
   for (let row of result) {
-    if (Array.isArray(row.value) || (!!row.value2 && Array.isArray(row.value2))){
+    if (Array.isArray(row.value) || (!!row.value2 && isArray(row.value2))){
       if(row.sign=='U'){
         input_plain_format += line(`- ${row.key}: ${isPlain(row.value)?row.value:printjson(row.value, tab_count + 1)}`)
         input_plain_format += line(`+ ${row.key}: ${isPlain(row.value2)?row.value2:printjson(row.value2, tab_count + 1)}`)
@@ -117,12 +117,10 @@ function printplain(result, tab_count = 0) {
     for (let i of result) {
       if (i.sign == ' ') {
         if (typeof (i.value) == 'object') {
-          if (deep == 0) {
-            godeep(1, i.value, i.key + '.')
-          }
-          else
-            ret += `Property '${prefix}${i.key}' was added with value: ${v(i.value)}` + '\n'
+            godeep(deep+1, i.value, prefix+i.key + '.')
         }
+      } else if (i.sign == 'U') {
+        ret += `Property '${prefix}${i.key}' was updated. From ${v(i.value)} to ${v(i.value2)}` + '\n'
       }
       else if (i.sign == '+') {
         ret += `Property '${prefix}${i.key}' was added with value: ${v(i.value)}` + '\n'
