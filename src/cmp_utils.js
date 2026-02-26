@@ -38,6 +38,9 @@ function compareObj(a, b) {
           if (a[i] === b[i]) {
             result.push({ sign: ' ', key: i, value: value(b[i]) })
           }
+          else if (typeof (a[i]) == 'object' || typeof (b[i]) === 'object') {
+            result.push({ sign: ' ', key: i, value: comparePlain(a[i], b[i]) })
+          }
           else {
             result.push({ sign: '-', key: i, value: value(a[i]) })
             result.push({ sign: '+', key: i, value: value(b[i]) })
