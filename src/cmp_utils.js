@@ -82,13 +82,13 @@ function printjson(result, tab_count = 0) {
   tab_count++
   for (let row of result) {
     if (Array.isArray(row.value)){
-      if(row.key=='U'){
+      if(row.sign=='U'){
         input_plain_format += line(`${row.sign} -: ${printjson(row.value, tab_count + 1)}`)
         input_plain_format += line(`${row.sign} +: ${printjson(row.value2, tab_count + 1)}`)
       } else
         input_plain_format += line(`${row.sign} ${row.key}: ${printjson(row.value, tab_count + 1)}`)
     } else {
-      if(row.key=='U'){
+      if(row.sign=='U'){
         input_plain_format += line(`${row.sign} -: ${row.value}`)
         input_plain_format += line(`${row.sign} +: ${row.value2}`)
       } else
