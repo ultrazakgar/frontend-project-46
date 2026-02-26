@@ -12,12 +12,14 @@ export default function genDiff(file1, file2, format) {
   if (!data1) return 'file not found'
   if (!data2) return 'file not found'
   let result = compareObj (data1, data2)
-  if (!format) format = 'json'
-  if (format === 'json' || format === 'stylish') {
+  if (!format) format = 'stylish'
+  if ( format === 'stylish') {
     return printjson(result)
   }
   if (format == 'plain')
     return printplain(result)
+  if (format === 'json')
+    return JSON.serialize(result)
 
   return `${format} unrecognised ${file1} ${file2}`
 }
