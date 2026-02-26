@@ -26,13 +26,14 @@ function readfile(filename, format) {
 }
 
 let isPlain = a => typeof a == 'string' || typeof a == 'number' || typeof a == 'boolean' || a === null
-function value(a) {
+
+
+function compareObj(a, b) {
+  function value(a) {
   if (a === null) return 'null'
   return isPlain(a) ? a : comparePlain(a, a)
 }
-
-function compareObj(a, b) {
-  function compareSingle(a, b, i, result) {
+function compareSingle(a, b, i, result) {
     if (a === b) {
       result.push({ sign: ' ', key: i, value: value(b) })
     }
@@ -98,8 +99,9 @@ function printplain(result, tab_count = 0) {
 // Property 'common.setting4' was added with value: 'blah blah'
 // Property 'common.setting5' was added with value: [complex value]
   function v(obj, deep) {
-    if (isPlain(obj)) return value(obj)
-    return '[complex value]'
+    if (typeof obj == 'string') return `'${obj}'`
+    if(typeof obj == 'object') return '[complex value]'
+    return obj
   }
 
   let ret = ''
