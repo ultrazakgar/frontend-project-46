@@ -3,7 +3,7 @@ import { Command } from 'commander'
 import { readfile } from '../src/cmp_utils.js'
 import { compareObj } from '../src/cmp_utils.js'
 import { printjson } from '../src/cmp_utils.js'
-import {existsSync } from 'fs'
+import { existsSync } from 'fs'
 const program = new Command()
 
 export default function genDiff(file1, file2, format) {
@@ -12,16 +12,18 @@ export default function genDiff(file1, file2, format) {
   if (!data2) return 'file not found'
   let result = compareObj (data1, data2)
   if (!format) format = 'json'
-  if (format === 'json' || format === 'stylish'){
+  if (format === 'json' || format === 'stylish') {
     return printjson(result)
   }
+  if (format == 'plain')
+    return printplain(result)
 
   return `${format} unrecognised ${file1} ${file2}`
 }
 
-function try2find(name, def){
-  if(existsSync(name)) return name;
-  if(existsSync(def)) return def;
+function try2find(name, def) {
+  if (existsSync(name)) return name
+  if (existsSync(def)) return def
 }
 
 program
@@ -39,14 +41,12 @@ program
       // so let's out it
       const options = program.opts()
       if (this.args[0] && this.args[1])
-        //try2find files
+      // try2find files
 
-
-
-        console.log(genDiff(try2find(this.args[0],'file1.json'), try2find(this.args[1],'file2.json'), options.format))
+        console.log(genDiff(try2find(this.args[0], 'file1.json'), try2find(this.args[1], 'file2.json'), options.format))
       else {
         program.outputHelp()
-        options.help = false;
+        options.help = false
       }
     }
     catch (err) {
@@ -56,7 +56,7 @@ program
   })
 program.parse()
 const options = program.opts()
-//if (options.debug)
+// if (options.debug)
 //  console.log(program.opts(), program.args)
 
 if (options.help)

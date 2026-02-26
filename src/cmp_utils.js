@@ -25,13 +25,13 @@ function readfile(filename, format) {
   return readFileSync(filename)
 }
 
-function compareObj(a, b) {
-  let isPlain = a => typeof a == 'string' || typeof a == 'number' || typeof a == 'boolean' || a === null
-  function value(a) {
-    if (a === null) return 'null'
-    return isPlain(a) ? a : comparePlain(a, a)
-  }
+let isPlain = a => typeof a == 'string' || typeof a == 'number' || typeof a == 'boolean' || a === null
+function value(a) {
+  if (a === null) return 'null'
+  return isPlain(a) ? a : comparePlain(a, a)
+}
 
+function compareObj(a, b) {
   function compareSingle(a, b, i, result) {
     if (a === b) {
       result.push({ sign: ' ', key: i, value: value(b) })
@@ -91,7 +91,40 @@ function printjson(result, tab_count = 0) {
   input_plain_format += line('}', nonl)
   return input_plain_format
 }
+function printplain(result, tab_count = 0) {
+// Property 'common.follow' was added with value: false
+// Property 'common.setting2' was removed
+// Property 'common.setting3' was updated. From true to null
+// Property 'common.setting4' was added with value: 'blah blah'
+// Property 'common.setting5' was added with value: [complex value]
+  function v(obj, deep) {
+    if (isPlain(obj)) return value(obj)
+    return '[complex value]'
+  }
 
+  let ret = ''
 
+  function godeep(deep, result, prefix = '') {
+    for (let i of result) {
+      if (i.sign == ' ') {
+        if (typeof (i.value) == 'object') {
+          if (deep == 0) {
+            godeep(1, i.value, i + '.')
+          }
+          else
+            ret += `Property '${prefix}${i.key}' was added with value: ${v(i.value)}` + '\n'
+        }
+      }
+      else if (i.sign == '+') {
+        ret += `Property '${prefix}${i.key}' was added with value: ${v(i.value)}` + '\n'
+      }else if (i.sign == '-') {
+        ret += `Property '${prefix}${i.key}' was removed` + '\n'
+      }
+    }
+  }
+
+  godeep(0, result)
+  return ret
+}
 
 export { readfile, compareObj, printjson }
