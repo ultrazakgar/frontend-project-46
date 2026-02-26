@@ -111,7 +111,7 @@ function printplain(result, tab_count = 0) {
       if (i.sign == ' ') {
         if (typeof (i.value) == 'object') {
           if (deep == 0) {
-            godeep(1, i.value, i + '.')
+            godeep(1, i.value, i.key + '.')
           }
           else
             ret += `Property '${prefix}${i.key}' was added with value: ${v(i.value)}` + '\n'
