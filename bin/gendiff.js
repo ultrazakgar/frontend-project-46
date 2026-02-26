@@ -29,8 +29,8 @@ program
   .version('0.0.1')
 
 program
-  .argument('<filepath1>')
-  .argument('<filepath2>')
+  .argument('[filepath1]')
+  .argument('[filepath2]')
   .option('-f, --format [type]', 'output format')
   .option('-h, --help', 'display help for command')
   .action(function () {
@@ -56,7 +56,7 @@ program
 program.parse()
 const options = program.opts()
 //if (options.debug)
-  console.log(program.opts(), program.args)
+//  console.log(program.opts(), program.args)
 
 if (options.help)
   program.outputHelp()
