@@ -1,18 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
 const program = new Command()
-import { compareObj  } from '../src/cmp_utils.js'
-import { readfile } from '../src/cmp_utils.js'
-
-export function genDiff (file1, file2,format){
-  let result = compareObj (readfile(file1), readfile(file2))
-  console.log('{')
-  for (let row of result) {
-    console.log('  %s %s: %s', row.sign, row.key, row.value)
-  }
-  console.log('}')
-
-}
+import { genDiff } from '../src/cmp_utils.js'
 
 program
   .name('gendiff')
@@ -22,16 +11,16 @@ program
 program
   .argument('[filepath1]')
   .argument('[filepath2]')
-//    .command('aa')
-//    .description('Split a string into substrings and display as an array')
-// .option('-V, --version', 'output the version number')
   .option('-f, --format [type]', 'output format')
   .option('-h, --help', 'display help for command')
   .action(function () {
     try {
       // so let's out it
       const options = program.opts()
-      genDiff(this.args[0],this.args[1],options.format);
+      if (this.args[0] && this.args[1])
+        console.log(genDiff(this.args[0], this.args[1], options.format))
+      else
+        program.outputHelp()
     }
     catch (err) {
       console.log (err.message)
@@ -45,3 +34,7 @@ if (options.debug)
 
 if (options.help)
   program.outputHelp()
+
+const file1 = import.meta.dirname + '/../__tests__/2/file1.json'
+const file2 = import.meta.dirname + '/../__tests__/2/file2.json'
+console.log(genDiff(file1, file2))
