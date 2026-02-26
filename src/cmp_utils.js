@@ -27,17 +27,16 @@ function readfile(filename, format) {
 
 let isPlain = a => typeof a == 'string' || typeof a == 'number' || typeof a == 'boolean' || a === null
 
-
 function compareObj(a, b) {
   function value(a) {
-  return isPlain(a) ? a : comparePlain(a, a)
-}
-function compareSingle(a, b, i, result) {
+    return isPlain(a) ? a : comparePlain(a, a)
+  }
+  function compareSingle(a, b, i, result) {
     if (a === b) {
       result.push({ sign: ' ', key: i, value: value(b) })
     }
     else if (isPlain(a) || isPlain(b)) {
-      result.push({ sign: 'U', key: i, value: value(a) , value2: value(b) })
+      result.push({ sign: 'U', key: i, value: value(a), value2: value(b) })
     }
     else {
       result.push({ sign: ' ', key: i, value: comparePlain(a, b, i) })
@@ -80,17 +79,20 @@ function printjson(result, tab_count = 0) {
   let input_plain_format = line('{', notab)
   tab_count++
   for (let row of result) {
-    if (Array.isArray(row.value) || (!!row.value2 && Array.isArray(row.value2))){
-      if(row.sign=='U'){
-        input_plain_format += line(`- ${row.key}: ${isPlain(row.value)?row.value:printjson(row.value, tab_count + 1)}`)
-        input_plain_format += line(`+ ${row.key}: ${isPlain(row.value2)?row.value2:printjson(row.value2, tab_count + 1)}`)
-      } else
+    if (Array.isArray(row.value) || (!!row.value2 && Array.isArray(row.value2))) {
+      if (row.sign == 'U') {
+        input_plain_format += line(`- ${row.key}: ${isPlain(row.value) ? row.value : printjson(row.value, tab_count + 1)}`)
+        input_plain_format += line(`+ ${row.key}: ${isPlain(row.value2) ? row.value2 : printjson(row.value2, tab_count + 1)}`)
+      }
+      else
         input_plain_format += line(`${row.sign} ${row.key}: ${printjson(row.value, tab_count + 1)}`)
-    } else {
-      if(row.sign=='U'){
+    }
+    else {
+      if (row.sign == 'U') {
         input_plain_format += line(`- ${row.key}: ${row.value}`)
         input_plain_format += line(`+ ${row.key}: ${row.value2}`)
-      } else
+      }
+      else
         input_plain_format += line(`${row.sign} ${row.key}: ${row.value}`)
     }
   }
@@ -98,15 +100,16 @@ function printjson(result, tab_count = 0) {
   input_plain_format += line('}', nonl)
   return input_plain_format
 }
-function printplain(result, tab_count = 0) {
+function printplain(result) {
 // Property 'common.follow' was added with value: false
 // Property 'common.setting2' was removed
 // Property 'common.setting3' was updated. From true to null
 // Property 'common.setting4' was added with value: 'blah blah'
 // Property 'common.setting5' was added with value: [complex value]
-  function v(obj, deep) {
+  function v(obj) {
     if (typeof obj == 'string') return `'${obj}'`
-    if(typeof obj == 'object') return '[complex value]'
+    if (null === obj) return 'null'
+    if (typeof obj == 'object') return '[complex value]'
     return obj
   }
 
@@ -116,14 +119,16 @@ function printplain(result, tab_count = 0) {
     for (let i of result) {
       if (i.sign == ' ') {
         if (typeof (i.value) == 'object') {
-            godeep(deep+1, i.value, prefix+i.key + '.')
+          godeep(deep + 1, i.value, prefix + i.key + '.')
         }
-      } else if (i.sign == 'U') {
+      }
+      else if (i.sign == 'U') {
         ret += `Property '${prefix}${i.key}' was updated. From ${v(i.value)} to ${v(i.value2)}` + '\n'
       }
       else if (i.sign == '+') {
         ret += `Property '${prefix}${i.key}' was added with value: ${v(i.value)}` + '\n'
-      }else if (i.sign == '-') {
+      }
+      else if (i.sign == '-') {
         ret += `Property '${prefix}${i.key}' was removed` + '\n'
       }
     }
