@@ -33,8 +33,8 @@ program
   .version('0.0.1')
 
 program
-  .argument('<filepath1>')
-  .argument('<filepath2>')
+  .argument('[filepath1]')
+  .argument('[filepath2]')
   .option('-f, --format [type]', 'output format')
   .option('-h, --help', 'display help for command')
   .action(function () {
