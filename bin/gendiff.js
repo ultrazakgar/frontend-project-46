@@ -56,7 +56,7 @@ program
 program.parse()
 const options = program.opts()
 //if (options.debug)
-  console.log(program.opts(), program.args())
+  console.log(program.opts(), program.args)
 
 if (options.help)
   program.outputHelp()
