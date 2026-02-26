@@ -15,7 +15,7 @@ export default function genDiff(file1, file2, format) {
   if (format === 'json')
     return printjson(result)
 
-  return 'format unrecognised'
+  return `${format} unrecognised ${file1} ${file2}`
 }
 
 function try2find(name, def){
