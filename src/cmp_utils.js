@@ -123,13 +123,13 @@ function printplain(result) {
         }
       }
       else if (i.sign == 'U') {
-        ret.push( `Property '${prefix}${i.key}' was updated. From ${v(i.value)} to ${v(i.value2)}` )
+        ret.push(`Property '${prefix}${i.key}' was updated. From ${v(i.value)} to ${v(i.value2)}`)
       }
       else if (i.sign == '+') {
-        ret.push( `Property '${prefix}${i.key}' was added with value: ${v(i.value)}` )
+        ret.push(`Property '${prefix}${i.key}' was added with value: ${v(i.value)}`)
       }
       else if (i.sign == '-') {
-        ret.push( `Property '${prefix}${i.key}' was removed`  ) 
+        ret.push(`Property '${prefix}${i.key}' was removed`)
       }
     }
   }
