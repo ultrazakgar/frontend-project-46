@@ -30,7 +30,6 @@ let isPlain = a => typeof a == 'string' || typeof a == 'number' || typeof a == '
 
 function compareObj(a, b) {
   function value(a) {
-  if (a === null) return 'null'
   return isPlain(a) ? a : comparePlain(a, a)
 }
 function compareSingle(a, b, i, result) {
