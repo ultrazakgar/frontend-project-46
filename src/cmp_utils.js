@@ -38,8 +38,7 @@ function compareSingle(a, b, i, result) {
       result.push({ sign: ' ', key: i, value: value(b) })
     }
     else if (isPlain(a) || isPlain(b)) {
-      result.push({ sign: '-', key: i, value: value(a) })
-      result.push({ sign: '+', key: i, value: value(b) })
+      result.push({ sign: 'U', key: i, value: value(a) , value2: value(b) })
     }
     else {
       result.push({ sign: ' ', key: i, value: comparePlain(a, b, i) })
@@ -49,8 +48,7 @@ function compareSingle(a, b, i, result) {
     let result = []
 
     if (isPlain(a) || isPlain(b)) {
-      result.push({ sign: '-', key: i, value: value(a) })
-      result.push({ sign: '+', key: i, value: value(b) })
+      result.push({ sign: 'U', key: i, value: value(a), value2: value(b) })
     }
     else {
       let sum = [...new Set(Object.keys(a).concat(Object.keys(b)))].sort()
@@ -83,10 +81,19 @@ function printjson(result, tab_count = 0) {
   let input_plain_format = line('{', notab)
   tab_count++
   for (let row of result) {
-    if (Array.isArray(row.value))
-      input_plain_format += line(`${row.sign} ${row.key}: ${printjson(row.value, tab_count + 1)}`)
-    else
-      input_plain_format += line(`${row.sign} ${row.key}: ${row.value}`)
+    if (Array.isArray(row.value)){
+      if(row.key=='U'){
+        input_plain_format += line(`${row.sign} -: ${printjson(row.value, tab_count + 1)}`)
+        input_plain_format += line(`${row.sign} +: ${printjson(row.value2, tab_count + 1)}`)
+      } else
+        input_plain_format += line(`${row.sign} ${row.key}: ${printjson(row.value, tab_count + 1)}`)
+    } else {
+      if(row.key=='U'){
+        input_plain_format += line(`${row.sign} -: ${row.value}`)
+        input_plain_format += line(`${row.sign} +: ${row.value2}`)
+      } else
+        input_plain_format += line(`${row.sign} ${row.key}: ${row.value}`)
+    }
   }
   tab_count--
   input_plain_format += line('}', nonl)
