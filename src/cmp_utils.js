@@ -10,8 +10,8 @@ function readfile(filename, format) {
   try { // testing
     accessSync(filename, constants.R_OK)
   }
-  catch (err) {
-    //console.log (err.message)
+  catch {
+    // console.log (err.message)
     return null
   }
   if (!format) {
@@ -26,12 +26,12 @@ function readfile(filename, format) {
 }
 
 function compareObj(a, b) {
-  let isPlain = a => typeof a == 'string' || typeof a == 'number'  || typeof a == 'boolean' || a === null
+  let isPlain = a => typeof a == 'string' || typeof a == 'number' || typeof a == 'boolean' || a === null
   function value(a) {
     if (a === null) return 'null'
     return isPlain(a) ? a : comparePlain(a, a)
   }
-  
+
   function compareSingle(a, b, i, result) {
     if (a === b) {
       result.push({ sign: ' ', key: i, value: value(b) })
@@ -53,10 +53,10 @@ function compareObj(a, b) {
     }
     else {
       let sum = [...new Set(Object.keys(a).concat(Object.keys(b)))].sort()
-      //console.log(a, b, sum)
+      // console.log(a, b, sum)
       for (let i of sum) {
-        if ( i in a) {
-          if ( i in b) {
+        if (i in a) {
+          if (i in b) {
             compareSingle(a[i], b[i], i, result)
           }
           else {
@@ -93,9 +93,9 @@ function printjson(result, tab_count = 0) {
 }
 
 function genDiff(file1, file2, format) {
-  let data1=readfile(file1), data2=readfile(file2)
-  if(!data1) return 'file not found';
-  if(!data2) return 'file not found';
+  let data1 = readfile(file1), data2 = readfile(file2)
+  if (!data1) return 'file not found'
+  if (!data2) return 'file not found'
   let result = compareObj (data1, data2)
   if (!format) format = 'json'
   if (format === 'json')

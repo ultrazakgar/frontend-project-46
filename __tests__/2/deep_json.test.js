@@ -2,8 +2,6 @@
 
 import { expect, test } from '@jest/globals'
 import { genDiff } from '../../src/cmp_utils.js'
-import { compareObj } from '../../src/cmp_utils.js'
-import { readfile } from '../../src/cmp_utils.js'
 import { printjson } from '../../src/cmp_utils.js'
 /*
 test('compareobj', ()=>{
