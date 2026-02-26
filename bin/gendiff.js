@@ -3,6 +3,7 @@ import { Command } from 'commander'
 import { readfile } from '../src/cmp_utils.js'
 import { compareObj } from '../src/cmp_utils.js'
 import { printjson } from '../src/cmp_utils.js'
+import { printplain } from '../src/cmp_utils.js'
 import { existsSync } from 'fs'
 const program = new Command()
 

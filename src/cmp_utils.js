@@ -129,4 +129,4 @@ function printplain(result, tab_count = 0) {
   return ret
 }
 
-export { readfile, compareObj, printjson }
+export { readfile, compareObj, printjson, printplain }
