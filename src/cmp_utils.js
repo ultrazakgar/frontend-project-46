@@ -18,7 +18,7 @@ function readfile(filename, format) {
     format = extname(filename)
   }
 
-  if (format === 'json' || format === '.json')
+  if (format === 'json' || format === '.json' || format === '.')
     return JSON.parse(readFileSync(filename))
   else if (format === 'yml' || format === '.yml')
     return yaml.load(readFileSync(filename))

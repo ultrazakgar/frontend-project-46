@@ -3,6 +3,7 @@ import { Command } from 'commander'
 import { readfile } from '../src/cmp_utils.js'
 import { compareObj } from '../src/cmp_utils.js'
 import { printjson } from '../src/cmp_utils.js'
+import {existsSync } from 'fs'
 const program = new Command()
 
 export default function genDiff(file1, file2, format) {
@@ -15,6 +16,11 @@ export default function genDiff(file1, file2, format) {
     return printjson(result)
 
   return 'format unrecognised'
+}
+
+function try2find(name, def){
+  if(existsSync(name)) return name;
+  if(existsSync(def)) return def;
 }
 
 program
@@ -32,7 +38,11 @@ program
       // so let's out it
       const options = program.opts()
       if (this.args[0] && this.args[1])
-        console.log(genDiff(this.args[0], this.args[1], options.format))
+        //try2find files
+
+
+
+        console.log(genDiff(try2find(this.args[0],'file1.json'), try2find(this.args[1],'file2.json'), options.format))
       else {
         program.outputHelp()
         options.help = false;
