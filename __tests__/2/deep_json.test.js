@@ -2,6 +2,8 @@
 
 import { expect, test } from '@jest/globals'
 import { genDiff } from '../../src/cmp_utils.js'
+import { compareObj } from '../../src/cmp_utils.js'
+import { readfile } from '../../src/cmp_utils.js'
 import { printjson } from '../../src/cmp_utils.js'
 /*
 test('compareobj', ()=>{
@@ -54,5 +56,5 @@ test('readjson', () => {
 test('compare files', () => {
   const file1 = import.meta.dirname + '/file1.json'
   const file2 = import.meta.dirname + '/file2.json'
-  expect(genDiff(file1, file2)).toBe('{\n  - follow: false\n    host: hexlet.io\n  - proxy: 123.234.53.22\n  - timeout: 50\n  + timeout: 20\n  + verbose: true\n}\n')
+  expect(genDiff (file1, file2)).toBe('{\n  - follow: false\n    host: hexlet.io\n  - proxy: 123.234.53.22\n  - timeout: 50\n  + timeout: 20\n  + verbose: true\n}\n')
 })

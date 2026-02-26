@@ -26,37 +26,52 @@ function readfile(filename, format) {
 }
 
 function compareObj(a, b) {
+  let isPlain = a => typeof a == 'string' || typeof a == 'number'  || typeof a == 'boolean' || a === null
   function value(a) {
     if (a === null) return 'null'
-    return typeof (a) === 'object' ? comparePlain(a, a) : a
+    return isPlain(a) ? a : comparePlain(a, a)
   }
-  function comparePlain(a, b) {
-    let sum = [...new Set(Object.keys(a).concat(Object.keys(b)))].sort(), result = []
-    for (let i of sum) {
-      if (i in a) {
-        if (i in b) {
-          if (a[i] === b[i]) {
-            result.push({ sign: ' ', key: i, value: value(b[i]) })
-          }
-          else if (typeof (a[i]) == 'object' || typeof (b[i]) === 'object') {
-            result.push({ sign: ' ', key: i, value: comparePlain(a[i], b[i]) })
+  
+  function compareSingle(a, b, i, result) {
+    if (a === b) {
+      result.push({ sign: ' ', key: i, value: value(b) })
+    }
+    else if (isPlain(a) || isPlain(b)) {
+      result.push({ sign: '-', key: i, value: value(a) })
+      result.push({ sign: '+', key: i, value: value(b) })
+    }
+    else {
+      result.push({ sign: ' ', key: i, value: comparePlain(a, b, i) })
+    }
+  }
+  function comparePlain(a, b, i) {
+    let result = []
+
+    if (isPlain(a) || isPlain(b)) {
+      result.push({ sign: '-', key: i, value: value(a) })
+      result.push({ sign: '+', key: i, value: value(b) })
+    }
+    else {
+      let sum = [...new Set(Object.keys(a).concat(Object.keys(b)))].sort()
+      //console.log(a, b, sum)
+      for (let i of sum) {
+        if ( i in a) {
+          if ( i in b) {
+            compareSingle(a[i], b[i], i, result)
           }
           else {
             result.push({ sign: '-', key: i, value: value(a[i]) })
-            result.push({ sign: '+', key: i, value: value(b[i]) })
           }
         }
         else {
-          result.push({ sign: '-', key: i, value: a = value(a[i]) })
+          result.push({ sign: '+', key: i, value: value(b[i]) })
         }
       }
-      else {
-        result.push({ sign: '+', key: i, value: value(b[i]) })
-      }
     }
+
     return result
   }
-  return comparePlain(a, b)
+  return comparePlain(a, b, '')
 }
 
 function printjson(result, tab_count = 0) {

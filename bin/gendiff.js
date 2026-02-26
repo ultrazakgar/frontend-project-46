@@ -2,6 +2,8 @@
 import { Command } from 'commander'
 const program = new Command()
 import { genDiff } from '../src/cmp_utils.js'
+import { compareObj } from '../src/cmp_utils.js'
+import { readfile } from '../src/cmp_utils.js'
 
 program
   .name('gendiff')
@@ -34,7 +36,7 @@ if (options.debug)
 
 if (options.help)
   program.outputHelp()
-
-const file1 = import.meta.dirname + '/../__tests__/2/file1.json'
-const file2 = import.meta.dirname + '/../__tests__/2/file2.json'
-console.log(genDiff(file1, file2))
+// console.log(typeof true)
+// const file1 = import.meta.dirname + '/../__tests__/2/file1 copy.json'
+// const file2 = import.meta.dirname + '/../__tests__/2/file2 copy.json'
+// console.log(compareObj(readfile(file1), readfile(file2)))
