@@ -113,7 +113,7 @@ function printplain(result) {
     return obj
   }
 
-  let ret = ''
+  let ret = []
 
   function godeep(deep, result, prefix = '') {
     for (let i of result) {
@@ -123,19 +123,19 @@ function printplain(result) {
         }
       }
       else if (i.sign == 'U') {
-        ret += `Property '${prefix}${i.key}' was updated. From ${v(i.value)} to ${v(i.value2)}` + '\n'
+        ret.push( `Property '${prefix}${i.key}' was updated. From ${v(i.value)} to ${v(i.value2)}` )
       }
       else if (i.sign == '+') {
-        ret += `Property '${prefix}${i.key}' was added with value: ${v(i.value)}` + '\n'
+        ret.push( `Property '${prefix}${i.key}' was added with value: ${v(i.value)}` )
       }
       else if (i.sign == '-') {
-        ret += `Property '${prefix}${i.key}' was removed` + '\n'
+        ret.push( `Property '${prefix}${i.key}' was removed`  ) 
       }
     }
   }
 
   godeep(0, result)
-  return ret
+  return ret.join('\n')
 }
 
 export { readfile, compareObj, printjson, printplain }
