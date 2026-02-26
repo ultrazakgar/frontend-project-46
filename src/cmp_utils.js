@@ -81,7 +81,7 @@ function printjson(result, tab_count = 0) {
   let input_plain_format = line('{', notab)
   tab_count++
   for (let row of result) {
-    if (Array.isArray(row.value)){
+    if (Array.isArray(row.value) || (!!row.value2 && Array.isArray(row.value2))){
       if(row.sign=='U'){
         input_plain_format += line(`- ${row.key}: ${isPlain(row.value)?row.value:printjson(row.value, tab_count + 1)}`)
         input_plain_format += line(`+ ${row.key}: ${isPlain(row.value2)?row.value2:printjson(row.value2, tab_count + 1)}`)
